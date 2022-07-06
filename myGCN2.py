@@ -111,7 +111,7 @@ class GCN(torch.nn.Module):
 model = GCN(num_node_features=data.num_node_features ,hidden_channels=[100])
 model.to(device)
 
-patience = 50
+patience = 100
 lr = 0.001
 epoches = 1000
 
@@ -144,7 +144,7 @@ for epoch in range(epoches):
     train_loss /= len(train_loader.dataset)
     
 
-    if (epoch+1)%50==0:
+    if (epoch+1)%patience==0:
         model.eval()
         ys, preds = [], []
         val_loss = 0
@@ -161,8 +161,6 @@ for epoch in range(epoches):
         val_loss /= len(test_loader.dataset)
         f1 = f1_score(y, pred, average=None)
         mf1 = f1_score(y, pred, average='micro')
-        #如果为None，则返回每个类的分数。否则，这决定了对数据进行平均的类型:
-        #“micro”: 通过计算总真阳性、假阴性和假阳性来全局计算指标。
 
         precision = precision_score(y, pred, average=None)
         recall = recall_score(y, pred, average=None)
@@ -180,7 +178,7 @@ for epoch in range(epoches):
 a,b,c,d = train_losses, val_losses, if1, accuracies
 pyplot.plot(numpy.array(a), 'r', label='Train loss')
 pyplot.plot(numpy.array(b), 'g', label='Valid loss')
-pyplot.plot(numpy.array(c), 'black', label='Illicit F1')
-pyplot.plot(numpy.array(d), 'orange', label='F1')
+pyplot.plot(numpy.array(c), 'b', label='F1-Score')
+pyplot.plot(numpy.array(d), 'orange', label='准确率')
 pyplot.ylim([0,1.0])
 pyplot.show()
