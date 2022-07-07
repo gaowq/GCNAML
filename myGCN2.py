@@ -1,5 +1,4 @@
 import numpy
-import os
 import pandas
 from sklearn.metrics import f1_score, precision_score, recall_score
 import matplotlib.pyplot as pyplot
@@ -111,6 +110,7 @@ class GCN(torch.nn.Module):
 model = GCN(num_node_features=data.num_node_features ,hidden_channels=[100])
 model.to(device)
 
+#5.训练和测试
 patience = 100
 lr = 0.001
 epoches = 1000
@@ -118,8 +118,6 @@ epoches = 1000
 optimizer = torch.optim.Adam(model.parameters(), lr=lr)
 criterion = torch.nn.CrossEntropyLoss(weight=torch.tensor([0.7,0.3]).to(device))
 
-
-#5.训练和测试
 train_losses=[]
 val_losses =[]
 accuracies=[]
