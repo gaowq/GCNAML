@@ -1,5 +1,4 @@
 import numpy
-import os
 import pandas
 from sklearn.metrics import f1_score, precision_score, recall_score
 import matplotlib.pyplot as pyplot
